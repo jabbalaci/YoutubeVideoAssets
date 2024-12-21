@@ -1,0 +1,1 @@
+beep='mplayer /home/jabba/Dropbox/assets/done.mp3 1>/dev/null 2>&1'
