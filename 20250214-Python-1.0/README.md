@@ -2,6 +2,10 @@
 
 Original blog post (not from me): https://www.bitecode.dev/p/lets-compile-python-10
 
+## Video
+
+Related video: https://www.youtube.com/watch?v=R93ZIAzyLNM (in Hungarian)
+
 ## Summary
 
 Here I sum up the steps in case the blog post above once disappeared.
