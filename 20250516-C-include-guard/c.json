@@ -1,0 +1,73 @@
+{
+	// Place your snippets for c here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"alap C prg.": {
+		"prefix": "alap",
+		"body": [
+			"#include <stdio.h>",
+			"",
+			"int main()",
+			"{",
+			"    printf(\"$0hello\\n\");",
+			"",
+			"    return 0;",
+			"}"
+		],
+		"description": "alap C prg."
+	},
+	"alap C prg. with strings": {
+		"prefix": "alaps",
+		"body": [
+			"#include \"prog1.h\"",
+			"#include <stdio.h>",
+			"#include <string.h>",
+			"",
+			"int main()",
+			"{",
+			"    $0string s = \"hello\";",
+			"",
+			"    return 0;",
+			"}"
+		],
+		"description": "alap C prg."
+	},
+	"#define in C": {
+		"prefix": "def",
+		"body": [
+			"#define "
+		],
+		"description": "#define in C"
+	},
+	"#include in C": {
+		"prefix": "inc",
+		"body": [
+			"#include <$0.h>"
+		],
+		"description": "#include in C"
+	},
+	"C header guard": {
+		"prefix": "guard",
+		"body": [
+			"#ifndef ${TM_FILENAME_BASE/(.*)/${1:/upcase}_H/}",
+			"#define ${TM_FILENAME_BASE/(.*)/${1:/upcase}_H/}",
+			"",
+			"$0",
+			// "${TM_FILENAME}",
+			// "${TM_FILENAME_BASE}",
+			"",
+			"#endif // ${TM_FILENAME_BASE/(.*)/${1:/upcase}_H/}"
+		],
+		"description": "C header guard using filename"
+	}
+}
