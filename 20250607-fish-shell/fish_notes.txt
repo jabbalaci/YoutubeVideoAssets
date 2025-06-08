@@ -1,0 +1,156 @@
+~/.config/fish
+
+---------------------------------------------------------------------------------------------------
+
+#############################
+## Environmental variables ##
+#############################
+
+#############################
+## Aliases / abbreviations ##
+#############################
+
+##############
+## Bindings ##
+##############
+
+###############
+## Functions ##
+###############
+
+---------------------------------------------------------------------------------------------------
+
+#############################
+## Environmental variables ##
+#############################
+
+set -gx EDITOR "micro"
+set -gx VIEWER $EDITOR
+set -gx VISUAL $EDITOR
+set -gx GIT_EDITOR $EDITOR
+
+
+#############################
+## Aliases / abbreviations ##
+#############################
+
+alias cdf "cd ~/.config/fish"
+alias cds "cd /tmp/send"
+alias rel "exec fish"
+
+alias ec="$EDITOR ~/.config/fish/config.fish"                    # edit config (this) file
+alias ep="$EDITOR ~/.config/fish/functions/fish_prompt.fish"     # edit prompt
+abbr config fish_config                                     	 # web-based configuration
+
+alias ls='ls --color=auto'
+alias d="ls -al"
+alias cls 'clear'
+alias q="cls; d"
+alias ... "cd ../.."
+alias cd.. "cd .."
+abbr - "cd -"
+abbr p2 'python2'
+abbr p3 'python3'
+abbr p 'python3'
+abbr f fish
+abbr b bash
+abbr z zsh
+alias pypy='pypy3'
+alias tree="tree -C"
+alias grep="grep --color=auto"
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias vim $EDITOR
+abbr v vim
+abbr val valgrind
+abbr m micro
+abbr e edit
+alias on="source .venv/bin/activate.fish"
+alias off deactivate
+#
+alias cp="cp -i"
+alias rm="rm -i"
+alias mv="mv -i"
+alias crontab='crontab -i'
+alias md='mkdir -p'
+#
+abbr a "./a.out"
+alias files "pacman -Ql"
+abbr run 'chmod u+x'
+abbr ff 'fastfetch'
+alias nh='thunar . 2>/dev/null'    # nautilus here (replaced by thunar)
+alias ppwd='/bin/pwd'
+abbr c "code"
+abbr c. "code ."   # open current dir. in VS Code
+abbr jsh "jshell"
+abbr ac "audacity"
+abbr mongo "mongosh"
+alias gedit="gedit 2>/dev/null"
+alias sysinfo="inxi -Fxxxrz"
+abbr pkg "pacman -Qo"       # The given file is in which package?
+alias aliases alias       # plural can be used too
+# vi key binding
+alias vi-on fish_vi_key_bindings
+alias vi-off "set -U fish_key_bindings fish_default_key_bindings"
+abbr cmd command
+alias matrix="cmatrix -ab"          # yay -S cmatrix
+abbr fp flatpak
+abbr clip "xsel -b"
+abbr cb "xsel -b"
+abbr tocb "xsel -b"
+abbr repo "gh repo view --web"          # yay -S github-cli
+alias xxd "xxd -R never -g 1 -d"        # no color, group by 1 byte, show offset in decimal instead of hex [in package tinyxxd]
+alias edge /usr/bin/microsoft-edge-stable
+
+##############
+## Bindings ##
+##############
+
+# Shared bindings:              https://fishshell.com/docs/current/interactive.html#shared-bindings
+# Emacs mode commands:          https://fishshell.com/docs/current/interactive.html#emacs-mode-commands
+
+# $ fish_key_reader
+#   ^ it shows you what escape sequence a keypress produces
+
+# bind alt-l 'commandline -i "ls -al"; commandline -f execute'    # **l**ist dir (working solution)
+bind alt-g 'git status; commandline -f repaint'                 # **g**it status
+# bind alt-m 'mc; commandline -f repaint'                         # **m**idnight commander
+bind ctrl-space forward-char                                    # accept auto-completion
+# commandline -a appends text to the current command
+bind alt-p 'commandline -a " | less"'                           # alt-p now uses `|` instead of `&|` (p: paginate)
+bind alt-c 'commandline -i "yay -Scc"'
+bind ctrl-o 'mc; commandline -f repaint'                        # start midnight commander
+
+
+###############
+## Functions ##
+###############
+
+function hello
+    echo "hello fish"
+end
+
+function mc -d "Launch Midnight Commander and stay in the folder where you quit"
+    set -l MC_USER (whoami)
+    set -l MC_PWD_DIR "/tmp/mc-$MC_USER"
+    mkdir -p $MC_PWD_DIR 2>/dev/null
+    set -l MC_PWD_FILE "$MC_PWD_DIR/mc.pwd.$fish_pid"
+
+    /usr/bin/mc -P "$MC_PWD_FILE" $argv
+
+    if test -r "$MC_PWD_FILE"
+        set -l MC_PWD (cat "$MC_PWD_FILE")
+        if test -n "$MC_PWD" && test "$MC_PWD" != "$PWD" && test -d "$MC_PWD"
+            cd "$MC_PWD"
+        end
+    end
+
+    rm -f "$MC_PWD_FILE"
+end
+
+####################
+## other settings ##
+####################
+set fish_greeting ""                    # no greeting
+set fish_color_valid_path               # disable underlines
+set fish_pager_color_prefix             # disable underlines when using TAB completions
